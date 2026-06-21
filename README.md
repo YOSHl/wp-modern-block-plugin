@@ -1,86 +1,56 @@
-# WordPress Modern Block Plugin
+# wp-modern-block-plugin
 
-A WordPress plugin featuring custom **Gutenberg blocks** built with modern PHP practices — namespaces, Composer autoloading, and class-based architecture. This project demonstrates that writing WordPress code the right way in 2025 means classes, not 2000-line `functions.php` files.
+A WordPress plugin with custom Gutenberg blocks, written with namespaces, Composer autoloading, and class-based PHP. No procedural code dumped into `functions.php`.
 
-## ✨ Features
+The plugin registers a CTA button block as a working example — configurable color and text via the block editor sidebar.
 
-- Namespace-scoped PHP classes under `src/`
-- **Composer** autoloading (`composer.json`)
-- Custom Gutenberg block with `block.json` + JSX (`edit` / `save`)
-- Build tooling via **`@wordpress/scripts`** (webpack)
-- Practical example block: CTA Button with configurable color and text
-- Inline **PHPDoc** comments throughout
-- **GitHub Actions** workflow running PHP_CodeSniffer (WPCS)
+## Stack
 
-## 🛠 Tech Stack
+- PHP 8.1+ with PSR-4 namespaces
+- Composer (autoloading)
+- Gutenberg block API (`block.json` + JSX)
+- `@wordpress/scripts` for builds
+- PHP_CodeSniffer + WordPress Coding Standards
+- GitHub Actions (WPCS check on every PR)
 
-| Area | Technology |
-|------|-----------|
-| Backend | PHP 8.1+ (OOP, namespaces) |
-| Dependency Management | Composer |
-| Block Editor | Gutenberg / WordPress Block API |
-| Frontend (Block) | React, JSX, @wordpress/scripts |
-| Build Tool | webpack (via @wordpress/scripts) |
-| Code Quality | PHP_CodeSniffer + WordPress Coding Standards |
-| CI | GitHub Actions |
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- PHP 8.1+
-- Composer
-- Node.js 18+
-- WordPress 6.0+ installation
-
-### Installation
+## Setup
 
 ```bash
 git clone https://github.com/YOSHl/wp-modern-block-plugin.git
 cd wp-modern-block-plugin
 
-# Install PHP dependencies
 composer install
-
-# Install JS dependencies and build assets
-npm install
-npm run build
+npm install && npm run build
 ```
 
-Copy or symlink the plugin folder into your WordPress `wp-content/plugins/` directory, then activate it from the WordPress admin.
+Copy the plugin folder to `wp-content/plugins/` and activate from the WordPress admin.
 
-### Development
+For development:
 
 ```bash
 npm run start   # watch mode
 ```
 
-## 📁 Project Structure
+## Project structure
 
 ```
-wp-modern-block-plugin/
-├── src/                        # PHP source (PSR-4 autoloaded)
-│   └── Blocks/
-│       └── CtaBlock.php        # Block registration class
-├── blocks/
-│   └── cta-button/
-│       ├── block.json          # Block metadata
-│       ├── edit.jsx            # Editor component
-│       ├── save.jsx            # Frontend render
-│       └── style.scss          # Block styles
-├── composer.json
-├── package.json
-├── webpack.config.js
-└── plugin.php                  # Plugin entry point
+src/
+  Blocks/
+    CtaBlock.php        # block registration
+blocks/
+  cta-button/
+    block.json
+    edit.jsx
+    save.jsx
+    style.scss
+composer.json
+package.json
+plugin.php
 ```
 
-## 🔑 Keywords
+## CI
 
-`PHP OOP` · `Composer` · `Gutenberg` · `WordPress Plugin Development` · `@wordpress/scripts` · `GitHub Actions` · `WordPress Coding Standards`
-
-## 👨‍💻 Development
-
-This project was developed with **Claude Code** (Anthropic). AI-assisted development was used to scaffold the plugin structure, implement block components, and configure the CI pipeline.
+On every pull request, GitHub Actions runs PHP_CodeSniffer against WordPress Coding Standards. The workflow file is at `.github/workflows/phpcs.yml`.
 
 ---
 
@@ -88,21 +58,9 @@ This project was developed with **Claude Code** (Anthropic). AI-assisted develop
 
 namespace・Composerオートロード・クラス設計で書いたWordPressカスタムブロックプラグインです。
 
-### このプロジェクトについて
+`functions.php` に手続き的なコードを書くのではなく、現代的なPHPの書き方（PSR-4 namespace・クラスベース）でWordPress開発をするとどうなるかを示すサンプルです。
 
-14年のWordPress経験を「古い書き方」ではなく「今の書き方」で示すためのプロジェクトです。「2000行の`functions.php`ではなくクラスで書く」というモダンPHPのアプローチを実証します。
-
-### 技術構成
-
-| 分野 | 技術 |
-|------|------|
-| バックエンド | PHP 8.1+（OOP、namespace）|
-| 依存関係管理 | Composer |
-| ブロックエディター | Gutenberg / WordPress Block API |
-| フロントエンド（ブロック）| React、JSX、@wordpress/scripts |
-| ビルドツール | webpack（@wordpress/scripts経由）|
-| コード品質 | PHP_CodeSniffer + WordPress Coding Standards |
-| CI | GitHub Actions |
+CTAボタンブロックを実装例として含んでいます（ブロックエディターのサイドバーから色とテキストを設定可能）。
 
 ### セットアップ
 
@@ -110,16 +68,12 @@ namespace・Composerオートロード・クラス設計で書いたWordPressカ
 git clone https://github.com/YOSHl/wp-modern-block-plugin.git
 cd wp-modern-block-plugin
 
-# PHP依存関係のインストール
 composer install
-
-# JSビルド
-npm install
-npm run build
+npm install && npm run build
 ```
 
-プラグインフォルダをWordPressの`wp-content/plugins/`に配置し、管理画面から有効化してください。
+`wp-content/plugins/` にコピーして、WordPress管理画面から有効化してください。
 
-### 開発について
+### CI
 
-このプロジェクトは **Claude Code**（Anthropic）を活用して開発しました。プラグイン構成のスキャフォールド・ブロックコンポーネントの実装・CIパイプラインの設定にAIアシスト開発を採用しています。
+PRを出すたびにGitHub ActionsがWordPress Coding StandardsでPHPCSチェックを実行します。
