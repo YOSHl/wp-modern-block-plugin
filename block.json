@@ -1,0 +1,37 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "wp-modern-block-plugin/table-of-contents",
+    "version": "1.0.0",
+    "title": "Table of Contents",
+    "category": "text",
+    "description": "Automatically generates a table of contents from the headings in the post.",
+    "keywords": ["toc", "table of contents", "headings", "navigation"],
+    "textdomain": "wp-modern-block-plugin",
+    "editorScript": "file:./build/index.js",
+    "style": "file:./build/style-index.css",
+    "attributes": {
+        "title": {
+            "type": "string",
+            "default": "Table of Contents"
+        },
+        "headingLevels": {
+            "type": "array",
+            "items": { "type": "number" },
+            "default": [2, 3]
+        }
+    },
+    "supports": {
+        "html": false,
+        "color": {
+            "background": true,
+            "text": true
+        },
+        "spacing": {
+            "padding": true
+        },
+        "typography": {
+            "fontSize": true
+        }
+    }
+}

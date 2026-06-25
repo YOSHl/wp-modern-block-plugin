@@ -1,0 +1,49 @@
+.wp-block-wp-modern-block-plugin-table-of-contents {
+	border: 1px solid currentColor;
+	border-radius: 4px;
+	padding: 1.25em 1.5em;
+	display: inline-block;
+	min-width: 200px;
+
+	.toc__title {
+		font-weight: 700;
+		margin: 0 0 0.75em;
+	}
+
+	.toc__list {
+		margin: 0;
+		padding-left: 1.25em;
+		list-style: decimal;
+	}
+
+	.toc__item {
+		margin: 0.25em 0;
+		line-height: 1.5;
+
+		&--depth-1 {
+			margin-left: 1.25em;
+			list-style-type: disc;
+		}
+
+		&--depth-2 {
+			margin-left: 2.5em;
+			list-style-type: circle;
+		}
+	}
+
+	.toc__link {
+		text-decoration: none;
+		color: inherit;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	// Editor-only placeholder
+	.toc__placeholder {
+		color: #757575;
+		font-style: italic;
+		margin: 0;
+	}
+}

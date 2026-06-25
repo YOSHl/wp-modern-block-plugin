@@ -1,22 +1,28 @@
 # wp-modern-block-plugin
 
-A WordPress plugin with custom Gutenberg blocks, written with namespaces, Composer autoloading, and class-based PHP. No procedural code dumped into `functions.php`.
+A WordPress plugin that adds a Table of Contents block to the Gutenberg editor. Headings in the post are detected automatically, and the TOC updates live as you write.
 
-The plugin registers a CTA button block as a working example — configurable color and text via the block editor sidebar.
+<!-- screenshot or GIF here -->
+
+## How it works
+
+- The block reads heading blocks (H2 / H3 / H4) in the current post and lists them in the editor in real time
+- On the frontend, PHP parses the saved content to render the TOC and inject anchor `id` attributes into the headings — no client-side JavaScript required for the output
+- Heading levels and the title text are configurable from the block sidebar
 
 ## Stack
 
-- PHP 8.1+ with PSR-4 namespaces
-- Composer (autoloading)
-- Gutenberg block API (`block.json` + JSX)
-- `@wordpress/scripts` for builds
-- PHP_CodeSniffer + WordPress Coding Standards
-- GitHub Actions (WPCS check on every PR)
+| Layer | Technology |
+|---|---|
+| PHP | 8.1+, namespaces, class-based design |
+| Block editor | `block.json` + JSX (`@wordpress/scripts`) |
+| Linting | PHP_CodeSniffer + WordPress Coding Standards |
+| CI | GitHub Actions runs PHPCS on every PR |
 
 ## Setup
 
 ```bash
-git clone https://github.com/YOSHl/wp-modern-block-plugin.git
+git clone https://github.com/moriyama-dev/wp-modern-block-plugin.git
 cd wp-modern-block-plugin
 
 composer install
@@ -25,55 +31,45 @@ npm install && npm run build
 
 Copy the plugin folder to `wp-content/plugins/` and activate from the WordPress admin.
 
-For development:
+For local development:
 
 ```bash
-npm run start   # watch mode
+npm run start   # watch mode with hot reload
 ```
 
 ## Project structure
 
 ```
-src/
+php/
   Blocks/
-    CtaBlock.php        # block registration
-blocks/
-  cta-button/
-    block.json
-    edit.jsx
-    save.jsx
-    style.scss
-composer.json
-package.json
+    class-tocblock.php       # block registration + server-side render
+  Parser/
+    class-headingparser.php  # heading extraction and anchor injection
+src/
+  index.js                   # block registration (JS)
+  edit.js                    # Gutenberg editor component
+  style.scss                 # frontend + editor styles
+block.json                   # block metadata and attributes
 plugin.php
 ```
 
 ## CI
 
-On every pull request, GitHub Actions runs PHP_CodeSniffer against WordPress Coding Standards. The workflow file is at `.github/workflows/phpcs.yml`.
+On every pull request, GitHub Actions checks all PHP against WordPress Coding Standards.
 
 ---
 
 ## 日本語
 
-namespace・Composerオートロード・クラス設計で書いたWordPressカスタムブロックプラグインです。
+WordPressのGutenbergエディターに「目次」ブロックを追加するプラグインです。
 
-`functions.php` に手続き的なコードを書くのではなく、現代的なPHPの書き方（PSR-4 namespace・クラスベース）でWordPress開発をするとどうなるかを示すサンプルです。
-
-CTAボタンブロックを実装例として含んでいます（ブロックエディターのサイドバーから色とテキストを設定可能）。
+記事内の見出しブロック（H2 / H3 / H4）を自動で検出し、目次を生成します。エディター上ではリアルタイムでプレビューが更新され、フロントエンドはPHPによるサーバーサイドレンダリングで動作します（フロントエンド側にJavaScriptは不要）。
 
 ### セットアップ
 
 ```bash
-git clone https://github.com/YOSHl/wp-modern-block-plugin.git
-cd wp-modern-block-plugin
-
 composer install
 npm install && npm run build
 ```
 
-`wp-content/plugins/` にコピーして、WordPress管理画面から有効化してください。
-
-### CI
-
-PRを出すたびにGitHub ActionsがWordPress Coding StandardsでPHPCSチェックを実行します。
+`wp-content/plugins/` にコピーして管理画面から有効化してください。

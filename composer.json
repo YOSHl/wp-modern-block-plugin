@@ -1,0 +1,29 @@
+{
+    "name": "moriyama-dev/wp-modern-block-plugin",
+    "description": "WordPress plugin with a custom Gutenberg table-of-contents block",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": ">=8.1"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.9",
+        "wp-coding-standards/wpcs": "^3.0",
+        "phpcsstandards/phpcsutils": "^1.0",
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "classmap": [
+            "php/"
+        ]
+    },
+    "scripts": {
+        "lint": "phpcs --standard=WordPress php/",
+        "test": "phpunit"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}
